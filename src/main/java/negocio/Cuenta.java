@@ -1,10 +1,12 @@
 package negocio;
 
+import java.time.LocalDate;
+
 public abstract class Cuenta {
     private int numero;
-    private String fecharApertura;
+    private LocalDate fecharApertura;
     private double saldo;
-    private String fechaCancelacion;
+    private LocalDate fechaCancelacion;
 
     public Cuenta(int numero, double saldo) {
         this.numero = numero;
@@ -29,14 +31,6 @@ public abstract class Cuenta {
         this.numero = numero;
     }
 
-    public String getFecharApertura() {
-        return fecharApertura;
-    }
-
-    public void setFecharApertura(String fecharApertura) {
-        this.fecharApertura = fecharApertura;
-    }
-
     public double getSaldo() {
         return saldo;
     }
@@ -45,11 +39,19 @@ public abstract class Cuenta {
         this.saldo = saldo;
     }
 
-    public String getFechaCancelacion() {
+    public LocalDate getFecharApertura() {
+        return fecharApertura;
+    }
+
+    public void setFecharApertura(LocalDate fecharApertura) {
+        this.fecharApertura = fecharApertura;
+    }
+
+    public LocalDate getFechaCancelacion() {
         return fechaCancelacion;
     }
 
-    public void setFechaCancelacion(String fechaCancelacion) {
+    public void setFechaCancelacion(LocalDate fechaCancelacion) {
         this.fechaCancelacion = fechaCancelacion;
     }
 

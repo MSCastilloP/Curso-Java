@@ -2,6 +2,7 @@ package principal;
 
 import negocio.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,10 @@ public class inicio extends Object {
         Domicilio domicilioBanco = new Domicilio("Calle Sultanito", "123", "Barrio 2", "Bogota", "123");
         ArrayList<Cuenta> cuentaList = new ArrayList<>();
 
-        CuentaDeAhorro cuentaDeAhorro = new CuentaDeAhorro(123,8283832.2,0.2);
-        CuentaDeCheque cuentaDeCheque = new CuentaDeCheque(1234,10);
-
+        LocalDate fecharApertura = LocalDate.of(2022, 9, 22);
+        CuentaDeAhorro cuentaDeAhorro = new CuentaDeAhorro(123, 8283832.2, 0.2);
+        CuentaDeCheque cuentaDeCheque = new CuentaDeCheque(1234, 10);
+        cuentaDeAhorro.setFecharApertura(fecharApertura);
         cuentaList.add(cuentaDeAhorro);
         cuentaList.add(cuentaDeCheque);
 //
@@ -29,9 +31,9 @@ public class inicio extends Object {
 
         Cliente cliente = new Cliente("Manuel", domicilio, 25, 128634, "MSCASTIL", "3021111");
         cliente.setCuentas(cuentaList);
-        cliente.abonaCuenta(1234,1);
-        cliente.retirar(123,8283832.2);
-        cliente.retirar(1234,11);
+        cliente.abonaCuenta(1234, 1);
+        cliente.retirar(123, 8283832.2);
+        cliente.retirar(1234, 11);
         Cliente cliente2 = new Cliente("Santiago", domicilio, 30, 198232134, "Santiago", "30221111");
         Cliente cliente3 = new Cliente("Pedro", domicilio, 24, 1256234, "Pedro", "30214111");
         Cliente cliente4 = new Cliente("Pascar", domicilio, 75, 15623434, "Pascar", "380281111");

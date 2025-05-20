@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -9,7 +10,7 @@ public class Cliente extends Persona implements Comparable<Cliente>, ServicioCue
     private String rfc;
     private String telefono;
     private ArrayList<Cuenta> cuentas;
-    private String fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
 
     public Cliente(String nombre, Domicilio domicilio, int edad, int numero, String rfc, String telefono) {
@@ -52,11 +53,11 @@ public class Cliente extends Persona implements Comparable<Cliente>, ServicioCue
         this.cuentas = cuentas;
     }
 
-    public String getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
