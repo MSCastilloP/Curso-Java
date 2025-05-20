@@ -1,7 +1,8 @@
 package negocio;
 
+import integracion.DAOCliente;
+
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Banco implements ServicioClientes {
     private String nombre;
@@ -10,6 +11,7 @@ public class Banco implements ServicioClientes {
     private String telefono;
     //private ArrayList<Cliente> clientes;
     private TreeSet<Cliente> clientes;
+    private DAOCliente clientesArchivo;
 
     public Banco(String nombre, Domicilio domicilio, String rfc, String telefono) {
         this.nombre = nombre;
@@ -60,22 +62,18 @@ public class Banco implements ServicioClientes {
             return false;
         }
     }
-
-    @Override
-    public Cliente consultarCLiente(int numero) {
-        return null;
-    }
-
-    public Cliente consultarCliente(int numero) {
-        for(Cliente c:clientes){
-            if(c.getNumero()==numero){
-                System.out.println("Se encontro el cliente numero:"+numero);
-                return c;
-            }
-        }
-        System.out.println("No se encontro el cliente con numero:"+numero);
-        return null;
-    }
+    // Implementar Streams
+//    @Override
+//    public Cliente consultarCliente(int numero) {
+//        for(Cliente c:clientes){
+//            if(c.getNumero()==numero){
+//                System.out.println("Se encontro el cliente numero:"+numero);
+//                return c;
+//            }
+//        }
+//        System.out.println("No se encontro el cliente con numero:"+numero);
+//        return null;
+//    }
 
     // Implementar Streams
     @Override
@@ -86,9 +84,6 @@ public class Banco implements ServicioClientes {
 //        }
         clientes.forEach(System.out::println);
         System.out.println("=".repeat(50));
-
-
-
 //        clientes.stream()
 //                .filter(cliente->cliente.getNombre().endsWith("o"))
 //                .forEach(cliente-> System.out.println(cliente));
@@ -103,24 +98,34 @@ public class Banco implements ServicioClientes {
 
     }
 
+    // Implementar con Streams
+//    @Override
+//    public Cliente buscarClientePorRfc(String rfc) {
+//        for(Cliente c:clientes){
+//            if(c.getRfc().equals(rfc)){
+//                System.out.println("Se encontro el cliente con rfc:"+rfc);
+//                return c;
+//            }
+//        }
+//        return null;
+//    }
+
     @Override
-    public Cliente buscarCLientePorRfc(String rfc) {
-        Predicate<Cliente> clientePredicate = cliente -> cliente.getRfc().contains(rfc);
-        return clientes.stream().filter(clientePredicate).findFirst().get();
+    public Cliente consultarCliente(int numero) {
+
+        return clientes.stream()
+                .filter(c -> c.getNumero() == numero)
+                .peek(c -> System.out.println("Se encontro el cliente numero: "+numero))
+                .findFirst().orElse(null);
     }
 
-    public Cliente buscarCLientePorNumero(String numero) {
-        Predicate<Cliente> clientePredicate = cliente -> cliente.getRfc().contains(rfc);
-        return clientes.stream().filter(clientePredicate).findFirst().get();
-    }
-
+    @Override
     public Cliente buscarClientePorRfc(String rfc) {
-        for(Cliente c:clientes){
-            if(c.getRfc().equals(rfc)){
-                System.out.println("Se encontro el cliente con rfc:"+rfc);
-                return c;
-            }
-        }
-        return null;
+        return clientes.stream()
+                .filter(c -> c.getRfc().equals(rfc))
+                .peek(c -> System.out.println("Se encontro el cliente con el rfc: " + rfc))
+                .findFirst()
+                .orElse(null);
     }
+
 }

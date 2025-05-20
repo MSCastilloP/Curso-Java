@@ -1,15 +1,19 @@
 package negocio;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Stream;
 
-public class Cliente extends Persona implements Comparable<Cliente> , ServicioClientes {
+public class Cliente extends Persona implements Comparable<Cliente>, ServicioCuentas{
     private int numero;
     private String rfc;
     private String telefono;
+    private ArrayList<Cuenta> cuentas;
+    private String fechaNacimiento;
+
 
     public Cliente(String nombre, Domicilio domicilio, int edad, int numero, String rfc, String telefono) {
-        super(nombre, domicilio, edad);
+        super(nombre, domicilio, edad); // construye la parte Persona que es el cliente
         this.setNumero(numero);
         this.setRfc(rfc);
         this.setTelefono(telefono);
@@ -39,48 +43,88 @@ public class Cliente extends Persona implements Comparable<Cliente> , ServicioCl
         this.telefono = telefono;
     }
 
+
+    public ArrayList<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(ArrayList<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    @Override
+    public void habla() {
+        System.out.println("El cliente pide su estado de cuenta");
+    }
+
+    //    @Override  // Sirve para indicar al programador que es un metodo que viene de la clase padre que estas sobreescribiendo.
     @Override
     public String toString() {
         return "Cliente{" +
                 "numero=" + numero +
                 ", rfc='" + rfc + '\'' +
                 ", telefono='" + telefono + '\'' +
-                '}' +
+                '}'+
                 super.toString();
     }
 
+
     @Override
     public int compareTo(Cliente c) {
-        if (this.numero < c.numero) {
+        if(this.numero < c.numero){
             return -1;
-        } else if (this.numero > c.numero) {
-            return -1;
+        }else if(this.numero>c.numero){
+            return +1;
+        }else {
+            return 0;
         }
-        return 0;
     }
 
     @Override
-    public boolean agregarCliente(Cliente cliente) {
-        return false;
-    }
+    public boolean buscaCuenta(int numero) {
+        if (this.numero!=numero){
+            System.out.println("Cuenta numero " + numero+"no existe");
+            return false;
+        }else {
+            return true;
+        }
 
-    @Override
-    public boolean eliminarCliente(int id) {
-        return false;
-    }
-
-    @Override
-    public Cliente consultarCLiente(int numero) {
-        return null;
-    }
-
-    @Override
-    public void listarClientes() {
 
     }
 
-    @Override
-    public Cliente buscarCLientePorRfc(String rfc) {
-        return null;
+    public void abonaCuenta(int numeroCuenta, double cantidad){
+
+        Optional<Cuenta> cuenta = cuentas.stream()
+                .filter(c -> c.getNumero() == numeroCuenta)
+                .findFirst();
+        if (cuenta.isPresent()) {
+            cuenta.get().abono(cantidad);
+            System.out.println("Abono exitoso a la cuenta " + numeroCuenta);
+            System.out.println(cuenta.get().getSaldo());
+        } else {
+            System.out.println("Cuenta número " + numeroCuenta + " no existe");
+        }
+    }
+
+    public void retirar(int numeroCuenta, double cantidad){
+        Optional<Cuenta> cuenta = cuentas.stream()
+                .filter(c -> c.getNumero() == numeroCuenta)
+                .findFirst();
+
+        if (cuenta.isPresent()) {
+            cuenta.get().retiro(cantidad);
+            System.out.println("Retiro exitoso de la cuenta " + numeroCuenta);
+            System.out.println(cuenta.get().getSaldo());
+        } else {
+            System.out.println("Cuenta número " + numeroCuenta + " no existe");
+        }
     }
 }

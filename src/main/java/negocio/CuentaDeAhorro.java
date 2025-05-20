@@ -20,6 +20,14 @@ public class CuentaDeAhorro extends Cuenta {
 
     @Override
     public double retiro(double cantidad) {
-        return 0;
+        if(cantidad>this.getSaldo()){
+            System.out.println("Fondos insuficientes");
+            System.out.println("Saldo actual : " + this.getSaldo());
+            return 0;
+        }
+        this.setSaldo(this.getSaldo()-cantidad);
+        System.out.println("Retiro por:" + cantidad);
+        System.out.println("Saldo por:" + this.getSaldo());
+        return cantidad;
     }
 }

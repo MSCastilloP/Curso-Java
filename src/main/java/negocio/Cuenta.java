@@ -55,7 +55,7 @@ public abstract class Cuenta {
 
     public  double abono(double cantidad) {
 
-        return this.saldo = cantidad;
+        return this.saldo = this.saldo  + cantidad;
     }
 
     public abstract double retiro(double cantidad);
