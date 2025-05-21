@@ -101,31 +101,5 @@ public class Cliente extends Persona implements Comparable<Cliente>, ServicioCue
 
     }
 
-    public void abonaCuenta(int numeroCuenta, double cantidad){
 
-        Optional<Cuenta> cuenta = cuentas.stream()
-                .filter(c -> c.getNumero() == numeroCuenta)
-                .findFirst();
-        if (cuenta.isPresent()) {
-            cuenta.get().abono(cantidad);
-            System.out.println("Abono exitoso a la cuenta " + numeroCuenta);
-            System.out.println(cuenta.get().getSaldo());
-        } else {
-            System.out.println("Cuenta número " + numeroCuenta + " no existe");
-        }
-    }
-
-    public void retirar(int numeroCuenta, double cantidad){
-        Optional<Cuenta> cuenta = cuentas.stream()
-                .filter(c -> c.getNumero() == numeroCuenta)
-                .findFirst();
-
-        if (cuenta.isPresent()) {
-            cuenta.get().retiro(cantidad);
-            System.out.println("Retiro exitoso de la cuenta " + numeroCuenta);
-            System.out.println(cuenta.get().getSaldo());
-        } else {
-            System.out.println("Cuenta número " + numeroCuenta + " no existe");
-        }
-    }
 }

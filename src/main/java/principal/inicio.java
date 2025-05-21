@@ -26,14 +26,21 @@ public class inicio extends Object {
         cuentaDeAhorro.setFecharApertura(fecharApertura);
         cuentaList.add(cuentaDeAhorro);
         cuentaList.add(cuentaDeCheque);
+
+        cuentaDeAhorro.retiro(10);
+        cuentaDeAhorro.retiro(8283832.2);
+        cuentaDeCheque.retiro(1);
+        cuentaDeCheque.retiro(10);
+
+
 //
 
 
         Cliente cliente = new Cliente("Manuel", domicilio, 25, 128634, "MSCASTIL", "3021111");
         cliente.setCuentas(cuentaList);
-        cliente.abonaCuenta(1234, 1);
-        cliente.retirar(123, 8283832.2);
-        cliente.retirar(1234, 11);
+//        cliente.abonaCuenta(1234, 1);
+//        cliente.retirar(123, 8283832.2);
+//        cliente.retirar(1234, 11);
         Cliente cliente2 = new Cliente("Santiago", domicilio, 30, 198232134, "Santiago", "30221111");
         Cliente cliente3 = new Cliente("Pedro", domicilio, 24, 1256234, "Pedro", "30214111");
         Cliente cliente4 = new Cliente("Pascar", domicilio, 75, 15623434, "Pascar", "380281111");

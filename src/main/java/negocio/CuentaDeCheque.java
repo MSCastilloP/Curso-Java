@@ -16,18 +16,19 @@ public class CuentaDeCheque extends Cuenta{
 
     @Override
     public double retiro(double cantidad) {
-        if(cantidad>this.getSaldo()){
+        var saldo = super.getSaldo();
+
+        if (cantidad > saldo) {
             System.out.println("Fondos insuficientes");
-            double penalizacion=this.getSaldo()*.1;
-            double remanente = this.getSaldo()-(this.getSaldo()*.1);
-            System.out.println("Saldo anterior : " + this.getSaldo() + "Penalizacion por saldo insuficiente: "+ penalizacion +"Saldo remanente : " +remanente);
+            double penalizacion=super.getSaldo()*.1;
+            double remanente = super.getSaldo()-(super.getSaldo()*.1);
+            System.out.println("Saldo anterior : " + super.getSaldo() + "Penalizacion por saldo insuficiente: "+ penalizacion +"Saldo remanente : " +remanente);
             this.setSaldo(remanente);
             return 0;
+        } else {
+            super.setSaldo(saldo - cantidad);
+            System.out.println("Saldo retirado : " + cantidad + "Saldo cantidad: " + super.getSaldo());
+            return saldo - cantidad;
         }
-        this.setSaldo(this.getSaldo()-cantidad);
-        System.out.println("Retiro por:" + cantidad);
-        System.out.println("Saldo por:" + this.getSaldo());
-        return cantidad;
     }
-
 }

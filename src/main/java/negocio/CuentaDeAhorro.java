@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.Optional;
+
 public class CuentaDeAhorro extends Cuenta {
     double tasaInteresMensual;
 
@@ -18,16 +20,18 @@ public class CuentaDeAhorro extends Cuenta {
                 '}';
     }
 
+
     @Override
     public double retiro(double cantidad) {
-        if(cantidad>this.getSaldo()){
-            System.out.println("Fondos insuficientes");
-            System.out.println("Saldo actual : " + this.getSaldo());
+        var saldo = super.getSaldo();
+
+        if (cantidad > saldo) {
+            System.out.println("Saldo insuficiente");
             return 0;
+        } else {
+            super.setSaldo(saldo - cantidad);
+            System.out.println("Saldo retirado : " + cantidad + "Saldo cantidad: " + super.getSaldo());
+            return saldo - cantidad;
         }
-        this.setSaldo(this.getSaldo()-cantidad);
-        System.out.println("Retiro por:" + cantidad);
-        System.out.println("Saldo por:" + this.getSaldo());
-        return cantidad;
     }
 }
